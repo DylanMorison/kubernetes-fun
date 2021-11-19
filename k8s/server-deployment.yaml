@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: server
+  template:
+    # specifies set of labels
+    metadata:
+      labels:
+        component: server
+    # customize exact behavior of each of the pods that are created
+    spec:
+      # specifiy a list of containers that this pod will run
+      # in this case we only need one specific image
+      containers:
+        - name: server
+          image: stephengrider/multi-server
+          # port 5000 should be accessible on the image that gets created in each pod
+          ports:
+            - containerPort: 5000
